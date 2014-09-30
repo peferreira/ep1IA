@@ -22,7 +22,7 @@ public class GerenciadorDeBuscas {
 			e.printStackTrace();
 		}
 		GerenciadorDeBuscas gbusca = new GerenciadorDeBuscas();
-		nomeBusca = "BCU";
+		nomeBusca = "BP";
 
 		if (nomeBusca.equals("BL")) {
 			gbusca.buscaBL(s, N);
@@ -34,8 +34,21 @@ public class GerenciadorDeBuscas {
 			gbusca.buscaBPI(s, N);
 		} else if (nomeBusca.equals("BCU")) {
 			gbusca.buscaBCU(s, N);
+		} else if (nomeBusca.equals("A*")) {
+			gbusca.buscaAstar(s, N);
 		}
 
+	}
+
+	private void buscaAstar(String s, int N) {
+		Busca b = null;
+		EstadoDoPuzzle e;
+		b = new BuscaAStar();
+		b.init(s, N);
+		e = b.busca();
+		if (e != null) {
+			b.imprime(e);
+		}
 	}
 
 	private void buscaBCU(String s, int N) {

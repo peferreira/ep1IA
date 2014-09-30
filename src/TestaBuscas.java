@@ -36,7 +36,7 @@ public class TestaBuscas {
 		
 		
 	}*/
-	@Test
+	/*@Test
 	public void testaBuscaProfundidadeLimitada(){
 		BuscaProfundidadeLimitada b = new BuscaProfundidadeLimitada();
 		EstadoDoPuzzle a = b.BPL(3);
@@ -46,14 +46,27 @@ public class TestaBuscas {
 		
 		
 	}
-	
-	
+	*/
+	/*
 	@Test
 	public void testaBuscaProfundidadeIterativa(){
 		BuscaProfundidadeIterativa b = new BuscaProfundidadeIterativa();
 		EstadoDoPuzzle a = b.BPI();
 		System.out.println("profundidade: " + a.profundidade);		
 		
+	}
+	*/
+	
+	@Test
+	public void testaFuncaoHeuristica(){
+		
+		int profundidade = 3;
+		int pvazia = 2;
+		int N = 5;
+		char puzzle[] = {'A','A','-','B','B'};
+		int custo = 0;
+		EstadoDoPuzzle a = new EstadoDoPuzzle(profundidade, pvazia, N, puzzle, custo);
+		System.out.println(a.heuristicaUm());
 	}
 	
 	/*@Test

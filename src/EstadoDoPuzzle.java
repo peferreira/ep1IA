@@ -94,7 +94,25 @@ public class EstadoDoPuzzle {
 		this.custo = custo;
 	}
 
-
+	int heuristicaUm(){
+		int i;
+		int valor = 0;
+		int posicaoUltimoA;
+		i = 0;
+		while(puzzle[i] != 'A'){
+			i++;
+		}
+		posicaoUltimoA = i;
+		i = tamanhoPuzzle -1;
+		while(i > posicaoUltimoA){
+			if(puzzle[i] == 'B'){
+				valor = valor +  (i - posicaoUltimoA) ;
+				
+			}
+			i--;
+		}
+		return valor;
+	}
 
 	EstadoDoPuzzle geraEstadosAdjacentes() {
 		char temp;
