@@ -83,6 +83,16 @@ public class EstadoDoPuzzle {
 		this.pai = this;
 		this.custo = custo;
 	}
+	
+	public EstadoDoPuzzle(int profundidade, int pvazia,
+			 int N, char puzzle[],Busca b,int custo) {
+		this.puzzle = puzzle;
+		this.profundidade = profundidade;
+		this.posicaoVazia = pvazia;
+		this.tamanhoPuzzle = N;
+		this.pai = this;
+		this.custo = custo;
+	}
 
 
 
@@ -125,7 +135,7 @@ public class EstadoDoPuzzle {
 			newpuzzle[j] = newpuzzle[posicaoVazia];
 			newpuzzle[posicaoVazia] = temp;
 			if (!htable.containsKey(new String(newpuzzle))) {
-				newCusto = custo + Math.abs(posicaoVazia-i);
+				newCusto = custo + Math.abs(posicaoVazia-j);
 
 				ep = new EstadoDoPuzzle(profundidade + 1, j, queue,
 						tamanhoPuzzle, newpuzzle, htable, this,newCusto);
@@ -171,10 +181,12 @@ public class EstadoDoPuzzle {
 	void imprimeFamilia(EstadoDoPuzzle no) {
 		if (no == no.pai) {
 			System.out.println(no.puzzle);
+			
 			return;
 		} else {
 			imprimeFamilia(no.pai);
 			System.out.println(no.puzzle);
+
 		}
 	}
 }

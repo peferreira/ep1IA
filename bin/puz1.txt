@@ -1,2 +1,2 @@
-3
--AAABBB
+4
+ABBBBAAA-

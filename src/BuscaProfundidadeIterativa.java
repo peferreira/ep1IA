@@ -26,7 +26,7 @@ public class BuscaProfundidadeIterativa extends BuscaProfundidadeLimitada {
 		System.out.println("numero de nós gerados:" + (numNoVisitados));
 		System.out.println("profundidade da meta:" + epz.profundidade);
 		System.out.println("custo da solução:" + epz.custo);
-		System.out.println("fator de ramificação médio: " + (numNoVisitados)
-				/ numNoVisitados);
+		System.out.println("fator de ramificação médio: " + (float)(numNoVisitados)
+				/ (float)numNoVisitados);
 	}
 }

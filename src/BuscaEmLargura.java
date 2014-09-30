@@ -58,6 +58,7 @@ public class BuscaEmLargura extends Busca {
 		System.out.println("numero de nós gerados:" + (numNoVisitados + queue.size()));
 		System.out.println("profundidade da meta:" + epz.profundidade);
 		System.out.println("custo da solução:" + epz.custo);
-		System.out.println("fator de ramificação médio: " + (numNoVisitados + queue.size())/numNoVisitados);
+		System.out.println("fator de ramificação médio: " + (float)(numNoVisitados + queue.size())
+				/(float)numNoVisitados);
 	}
 }

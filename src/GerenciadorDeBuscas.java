@@ -22,7 +22,7 @@ public class GerenciadorDeBuscas {
 			e.printStackTrace();
 		}
 		GerenciadorDeBuscas gbusca = new GerenciadorDeBuscas();
-		nomeBusca = "BPI";
+		nomeBusca = "BCU";
 
 		if (nomeBusca.equals("BL")) {
 			gbusca.buscaBL(s, N);
@@ -32,8 +32,21 @@ public class GerenciadorDeBuscas {
 			gbusca.buscaBPL(s, N);
 		} else if (nomeBusca.equals("BPI")) {
 			gbusca.buscaBPI(s, N);
+		} else if (nomeBusca.equals("BCU")) {
+			gbusca.buscaBCU(s, N);
 		}
 
+	}
+
+	private void buscaBCU(String s, int N) {
+		Busca b = null;
+		EstadoDoPuzzle e;
+		b = new BuscaCustoUniforme();
+		b.init(s, N);
+		e = b.busca();
+		if (e != null) {
+			b.imprime(e);
+		}
 	}
 
 	void buscaBL(String s, int N) {
@@ -66,9 +79,9 @@ public class GerenciadorDeBuscas {
 		e = b.busca();
 		if (e != null) {
 			b.imprime(e);
-		}
-		else{
-			System.out.println("limite não é suficiente para encontrar solução");
+		} else {
+			System.out
+					.println("limite não é suficiente para encontrar solução");
 		}
 
 	}
