@@ -1,2 +1,2 @@
-2
-BA-AB
+3
+-AAABBB

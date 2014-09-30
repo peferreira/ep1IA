@@ -46,7 +46,7 @@ public class BuscaEmLargura extends Busca {
 		if(pvazia < 0){
 			System.out.println("não existe posição vazia no vetor fornecido");
 		}
-		noIni = new EstadoDoPuzzle(0, pvazia, queue,  tamanhoPuzzle,p, htable);
+		noIni = new EstadoDoPuzzle(0, pvazia, queue,  tamanhoPuzzle,p, htable,0);
 		noIni.puzzle = p;
 		noIni.posicaoVazia = pvazia;
 	}
@@ -57,7 +57,7 @@ public class BuscaEmLargura extends Busca {
 		System.out.println("numero de nós explorados:" + numNoVisitados);
 		System.out.println("numero de nós gerados:" + (numNoVisitados + queue.size()));
 		System.out.println("profundidade da meta:" + epz.profundidade);
-		System.out.println("custo da solução:");
+		System.out.println("custo da solução:" + epz.custo);
 		System.out.println("fator de ramificação médio: " + (numNoVisitados + queue.size())/numNoVisitados);
 	}
 }

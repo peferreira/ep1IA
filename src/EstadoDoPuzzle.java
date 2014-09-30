@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Queue;
 
 import java.util.Hashtable;
 
@@ -9,13 +8,14 @@ public class EstadoDoPuzzle {
 	int profundidade;
 	int posicaoVazia;
 	int tamanhoPuzzle;
+	int custo;
 	EstadoDoPuzzle pai;
 	LinkedList<EstadoDoPuzzle> queue;
 	Hashtable<String, EstadoDoPuzzle> htable;
 
 	public EstadoDoPuzzle(int profundidade, int pvazia,
 			LinkedList<EstadoDoPuzzle> queue, int N, char puzzle[],
-			Hashtable<String, EstadoDoPuzzle> htable, EstadoDoPuzzle pai) {
+			Hashtable<String, EstadoDoPuzzle> htable, EstadoDoPuzzle pai, int custo) {
 		this.puzzle = puzzle;
 		this.profundidade = profundidade;
 		this.posicaoVazia = pvazia;
@@ -23,11 +23,12 @@ public class EstadoDoPuzzle {
 		this.tamanhoPuzzle = N;
 		this.htable = htable;
 		this.pai = pai;
+		this.custo = custo;
 	}
 
 	public EstadoDoPuzzle(int profundidade, int pvazia,
 			LinkedList<EstadoDoPuzzle> queue, int N, char puzzle[],
-			EstadoDoPuzzle pai) {
+			EstadoDoPuzzle pai,int custo) {
 		this.puzzle = puzzle;
 		this.profundidade = profundidade;
 		this.posicaoVazia = pvazia;
@@ -35,11 +36,13 @@ public class EstadoDoPuzzle {
 		this.tamanhoPuzzle = N;
 		this.htable = null;
 		this.pai = pai;
+		this.custo = custo;
+
 	}
 
 	public EstadoDoPuzzle(int profundidade, int pvazia,
 			LinkedList<EstadoDoPuzzle> queue, int N, char puzzle[],
-			Hashtable<String, EstadoDoPuzzle> htable) {
+			Hashtable<String, EstadoDoPuzzle> htable,int custo) {
 		this.puzzle = puzzle;
 		this.profundidade = profundidade;
 		this.posicaoVazia = pvazia;
@@ -47,34 +50,38 @@ public class EstadoDoPuzzle {
 		this.tamanhoPuzzle = N;
 		this.htable = htable;
 		this.pai = this;
+		this.custo = custo;
 	}
 
 	public EstadoDoPuzzle(int profundidade, int pvazia,
-			LinkedList<EstadoDoPuzzle> queue, int N, char puzzle[]) {
+			LinkedList<EstadoDoPuzzle> queue, int N, char puzzle[],int custo) {
 		this.puzzle = puzzle;
 		this.profundidade = profundidade;
 		this.posicaoVazia = pvazia;
 		this.queue = queue;
 		this.tamanhoPuzzle = N;
 		this.pai = this;
+		this.custo = custo;
 	}
 	
 	public EstadoDoPuzzle(int profundidade, int pvazia,
-			 int N, char puzzle[], EstadoDoPuzzle pai) {
+			 int N, char puzzle[], EstadoDoPuzzle pai,int custo) {
 		this.puzzle = puzzle;
 		this.profundidade = profundidade;
 		this.posicaoVazia = pvazia;
 		this.tamanhoPuzzle = N;
 		this.pai = pai;
+		this.custo = custo;
 	}
 	
 	public EstadoDoPuzzle(int profundidade, int pvazia,
-			 int N, char puzzle[]) {
+			 int N, char puzzle[],int custo) {
 		this.puzzle = puzzle;
 		this.profundidade = profundidade;
 		this.posicaoVazia = pvazia;
 		this.tamanhoPuzzle = N;
 		this.pai = this;
+		this.custo = custo;
 	}
 
 
@@ -82,7 +89,7 @@ public class EstadoDoPuzzle {
 	EstadoDoPuzzle geraEstadosAdjacentes() {
 		char temp;
 		char newpuzzle[];
-
+		int newCusto = 0;
 		int i = posicaoVazia;
 		int j = posicaoVazia;
 		EstadoDoPuzzle ep;
@@ -96,8 +103,9 @@ public class EstadoDoPuzzle {
 			newpuzzle[i] = newpuzzle[posicaoVazia];
 			newpuzzle[posicaoVazia] = temp;
 			if (!htable.containsKey(new String(newpuzzle))) {
+				newCusto = custo + Math.abs(posicaoVazia-i);
 				ep = new EstadoDoPuzzle(profundidade + 1, i, queue,
-						tamanhoPuzzle, newpuzzle, htable, this);
+						tamanhoPuzzle, newpuzzle, htable, this, newCusto);
 
 				htable.put(new String(newpuzzle), ep);
 				if (ehSolucao(newpuzzle)) {
@@ -117,8 +125,10 @@ public class EstadoDoPuzzle {
 			newpuzzle[j] = newpuzzle[posicaoVazia];
 			newpuzzle[posicaoVazia] = temp;
 			if (!htable.containsKey(new String(newpuzzle))) {
+				newCusto = custo + Math.abs(posicaoVazia-i);
+
 				ep = new EstadoDoPuzzle(profundidade + 1, j, queue,
-						tamanhoPuzzle, newpuzzle, htable, this);
+						tamanhoPuzzle, newpuzzle, htable, this,newCusto);
 
 				htable.put(new String(newpuzzle), ep);
 				if (ehSolucao(newpuzzle)) {

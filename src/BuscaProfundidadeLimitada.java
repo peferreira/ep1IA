@@ -1,12 +1,13 @@
-import java.util.LinkedList;
-
 public class BuscaProfundidadeLimitada extends Busca {
 
 	int limite;
 	private EstadoDoPuzzle noIni;
 
+	public BuscaProfundidadeLimitada(int limite) {
+		this.limite = limite;
+	}
 	public BuscaProfundidadeLimitada() {
-
+		this.limite = 3;
 	}
 	public EstadoDoPuzzle busca(){
 		return BPL(limite);
@@ -30,6 +31,7 @@ public class BuscaProfundidadeLimitada extends Busca {
 			resultado = null;
 			char temp;
 			char newpuzzle[];
+			int newCusto;
 			while (((i > 0 && no.abs(no.posicaoVazia, i)))) {
 				i--;
 				newpuzzle = new char[no.tamanhoPuzzle];
@@ -39,8 +41,10 @@ public class BuscaProfundidadeLimitada extends Busca {
 				temp = newpuzzle[i];
 				newpuzzle[i] = newpuzzle[no.posicaoVazia];
 				newpuzzle[no.posicaoVazia] = temp;
+				newCusto = no.custo + Math.abs(no.posicaoVazia-i);
+
 				filho = new EstadoDoPuzzle((no.profundidade) + 1, i,
-						no.tamanhoPuzzle, newpuzzle, no);
+						no.tamanhoPuzzle, newpuzzle, no,newCusto);
 				resultado = BPLRecursiva(filho, limi - 1);
 				numNoVisitados++;
 				if (resultado != null)
@@ -56,8 +60,10 @@ public class BuscaProfundidadeLimitada extends Busca {
 					temp = newpuzzle[j];
 					newpuzzle[j] = newpuzzle[no.posicaoVazia];
 					newpuzzle[no.posicaoVazia] = temp;
+					newCusto = no.custo + Math.abs(no.posicaoVazia-j);
+
 					filho = new EstadoDoPuzzle((no.profundidade) + 1, j,
-							no.tamanhoPuzzle, newpuzzle, no);
+							no.tamanhoPuzzle, newpuzzle, no,newCusto);
 					resultado = BPLRecursiva(filho, limi - 1);
 					numNoVisitados++;
 					if (resultado != null)
@@ -81,10 +87,9 @@ public class BuscaProfundidadeLimitada extends Busca {
 		if (pvazia < 0) {
 			System.out.println("não existe posição vazia no vetor fornecido");
 		}
-		noIni = new EstadoDoPuzzle(0, pvazia, tamanhoPuzzle, p);
+		noIni = new EstadoDoPuzzle(0, pvazia, tamanhoPuzzle, p,0);
 		noIni.puzzle = p;
 		noIni.posicaoVazia = pvazia;
-		limite = 3;
 	}
 
 	void imprime(EstadoDoPuzzle epz) {
@@ -95,7 +100,7 @@ public class BuscaProfundidadeLimitada extends Busca {
 		System.out.println("numero de nós gerados:"
 				+ (numNoVisitados));
 		System.out.println("profundidade da meta:" + epz.profundidade);
-		System.out.println("custo da solução:");
+		System.out.println("custo da solução:" + epz.custo);
 		System.out.println("fator de ramificação médio: "
 				+ (numNoVisitados) / numNoVisitados);
 	}

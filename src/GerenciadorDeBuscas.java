@@ -22,7 +22,7 @@ public class GerenciadorDeBuscas {
 			e.printStackTrace();
 		}
 		GerenciadorDeBuscas gbusca = new GerenciadorDeBuscas();
-		nomeBusca = "BPL";
+		nomeBusca = "BPI";
 
 		if (nomeBusca.equals("BL")) {
 			gbusca.buscaBL(s, N);
@@ -61,17 +61,27 @@ public class GerenciadorDeBuscas {
 	void buscaBPL(String s, int N) {
 		Busca b = null;
 		EstadoDoPuzzle e;
-		b = new BuscaProfundidadeLimitada();
+		b = new BuscaProfundidadeLimitada(10);
 		b.init(s, N);
 		e = b.busca();
 		if (e != null) {
 			b.imprime(e);
 		}
+		else{
+			System.out.println("limite não é suficiente para encontrar solução");
+		}
 
 	}
 
 	void buscaBPI(String s, int N) {
-		System.out.println("fazer busca BPI");
+		Busca b = null;
+		EstadoDoPuzzle e;
+		b = new BuscaProfundidadeIterativa();
+		b.init(s, N);
+		e = b.busca();
+		if (e != null) {
+			b.imprime(e);
+		}
 	}
 
 }
